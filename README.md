@@ -1,35 +1,21 @@
 # Logrus <img src="http://i.imgur.com/hTeVwmJ.png" width="40" height="40" alt=":walrus:" class="emoji" title=":walrus:"/> [![Build Status](https://travis-ci.org/sirupsen/logrus.svg?branch=master)](https://travis-ci.org/sirupsen/logrus) [![GoDoc](https://godoc.org/github.com/sirupsen/logrus?status.svg)](https://godoc.org/github.com/sirupsen/logrus)
 
-Logrus是一个结构化日志打印器, 与标准库完全兼容。
+Logrus是一个结构化日志打印器, 与标准库完全兼容。<br>
 
-**Logrus处于维护模式.** 我们不会介绍新功能，它太难了，会破坏很多人的项目, 这是你想从日志库中获取的最后一件事。
+**Logrus处于维护模式.** 我们不会介绍新功能，它太难了，会破坏很多人的项目, 这是你想从日志库中获取的最后一件事。<br>
 
-但是这不意味着logrus已死，Logurs将会继续维护，修复bug，提升性能。
+但是这不意味着logrus已死，Logurs将会继续维护，修复bug，提升性能。<br>
 
-我相信Logrus最大的贡献是在golang项目的中结构化日志，被广泛使用。似乎没有理由，中断迭代进入Logrus v2版本
-I believe Logrus' biggest contribution is to have played a part in today's
-widespread use of structured logging in Golang. There doesn't seem to be a
-reason to do a major, breaking iteration into Logrus V2, since the fantastic Go
-community has built those independently. Many fantastic alternatives have sprung
-up. Logrus would look like those, had it been re-designed with what we know
-about structured logging in Go today. Check out, for example,
-[Zerolog][zerolog], [Zap][zap], and [Apex][apex].
+我相信Logrus最大的贡献是在golang项目的中结构化日志，被广泛使用。似乎没有理由，中断迭代进入Logrus v2版本，自动go语言社区被简历起来。很多奇妙的选择跳了出来。如果使用我们所知道的重新设计，Logrus看起来像那些有关Go中的结构化日志的信息。如：[Zerolog][zerolog], [Zap][zap], [Apex][apex]。
 
 [zerolog]: https://github.com/rs/zerolog
 [zap]: https://github.com/uber-go/zap
 [apex]: https://github.com/apex/log
 
-**Seeing weird case-sensitive problems?** It's in the past been possible to
-import Logrus as both upper- and lower-case. Due to the Go package environment,
-this caused issues in the community and we needed a standard. Some environments
-experienced problems with the upper-case variant, so the lower-case was decided.
-Everything using `logrus` will need to use the lower-case:
-`github.com/sirupsen/logrus`. Any package that isn't, should be changed.
-
-To fix Glide, see [these
-comments](https://github.com/sirupsen/logrus/issues/553#issuecomment-306591437).
-For an in-depth explanation of the casing issue, see [this
-comment](https://github.com/sirupsen/logrus/issues/570#issuecomment-313933276).
+**看到奇怪的大小写敏感问题?** 在过去，可能导入Logrus的时候，既可以大写，也可以小写。但是由于Go封装环境，这在社区引起了一个争论。所以我们需要一个标准。一些环境遇到了大写变体的问题，因此决定将小写作为标准。所有使用logus的东西，都需要使用小写`github.com/sirupsen/logrus`。
+<br>
+对于修复Glide, 请查看 [这些评论](https://github.com/sirupsen/logrus/issues/553#issuecomment-306591437).<br>
+关于这个问题的深入讨论，请查看[这些评论](https://github.com/sirupsen/logrus/issues/570#issuecomment-313933276).<br>
 
 Nicely color-coded in development (when a TTY is attached, otherwise just
 plain text):
