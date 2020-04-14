@@ -1,16 +1,12 @@
 # Logrus <img src="http://i.imgur.com/hTeVwmJ.png" width="40" height="40" alt=":walrus:" class="emoji" title=":walrus:"/> [![Build Status](https://travis-ci.org/sirupsen/logrus.svg?branch=master)](https://travis-ci.org/sirupsen/logrus) [![GoDoc](https://godoc.org/github.com/sirupsen/logrus?status.svg)](https://godoc.org/github.com/sirupsen/logrus)
 
-Logrus is a structured logger for Go (golang), completely API compatible with
-the standard library logger.
+Logrus是一个结构化日志打印器, 与标准库完全兼容。
 
-**Logrus is in maintenance-mode.** We will not be introducing new features. It's
-simply too hard to do in a way that won't break many people's projects, which is
-the last thing you want from your Logging library (again...).
+**Logrus处于维护模式.** 我们不会介绍新功能，它太难了，会破坏很多人的项目, 这是你想从日志库中获取的最后一件事。
 
-This does not mean Logrus is dead. Logrus will continue to be maintained for
-security, (backwards compatible) bug fixes, and performance (where we are
-limited by the interface). 
+但是这不意味着logrus已死，Logurs将会继续维护，修复bug，提升性能。
 
+我相信Logrus最大的贡献是在golang项目的中结构化日志，被广泛使用。似乎没有理由，中断迭代进入Logrus v2版本
 I believe Logrus' biggest contribution is to have played a part in today's
 widespread use of structured logging in Golang. There doesn't seem to be a
 reason to do a major, breaking iteration into Logrus V2, since the fantastic Go
