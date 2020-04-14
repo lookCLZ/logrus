@@ -193,12 +193,7 @@ log.WithFields(log.Fields{
 一般来说，使用Logrus中`printf`一系列函数作为提示时，应该加上一个字段。但是，你仍然可以使用`printf`一系列函数。
 
 #### 默认字段
-通常，将字段_always_附加到日志语句中很有帮助。例如，你可能想
-Often it's helpful to have fields _always_ attached to log statements in an
-application or parts of one. For example, you may want to always log the
-`request_id` and `user_ip` in the context of a request. Instead of writing
-`log.WithFields(log.Fields{"request_id": request_id, "user_ip": user_ip})` on
-every line, you can create a `logrus.Entry` to pass around instead:
+通常，将字段_always_附加到日志语句中很有帮助。例如，你可能想始终记录`request_id` and `user_ip`，而不是重复的写`log.WithFields(log.Fields{"request_id": request_id, "user_ip": user_ip})`，你可以创建一个`logrus.Entry`来替代：
 
 ```go
 requestLogger := log.WithFields(log.Fields{"request_id": request_id, "user_ip": user_ip})
@@ -206,14 +201,10 @@ requestLogger.Info("something happened on that request") # will log request_id a
 requestLogger.Warn("something not great happened")
 ```
 
-#### Hooks
+#### 钩子
 
-You can add hooks for logging levels. For example to send errors to an exception
-tracking service on `Error`, `Fatal` and `Panic`, info to StatsD or log to
-multiple places simultaneously, e.g. syslog.
-
-Logrus comes with [built-in hooks](hooks/). Add those, or your custom hook, in
-`init`:
+你可以添加日志级别的钩子。例如：发送错误给一个额外的追踪服务，将信息发送到StatsD或者多个地方，如日志系统。
+Logrus附带[钩子](hooks/)，可以在init函数中引入附带的钩子，或者引入你自定义的钩子。
 
 ```go
 import (
@@ -237,7 +228,8 @@ func init() {
   }
 }
 ```
-Note: Syslog hook also support connecting to local syslog (Ex. "/dev/log" or "/var/run/syslog" or "/var/run/log"). For the detail, please check the [syslog hook README](hooks/syslog/README.md).
+
+注意: Syslog hook also support connecting to local syslog (Ex. "/dev/log" or "/var/run/syslog" or "/var/run/log"). For the detail, please check the [syslog hook README](hooks/syslog/README.md).
 
 A list of currently known service hooks can be found in this wiki [page](https://github.com/sirupsen/logrus/wiki/Hooks)
 
