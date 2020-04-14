@@ -12,18 +12,17 @@ Logrus是一个结构化日志打印器, 与标准库完全兼容。<br>
 [zap]: https://github.com/uber-go/zap
 [apex]: https://github.com/apex/log
 
-**看到奇怪的大小写敏感问题?** 在过去，可能导入Logrus的时候，既可以大写，也可以小写。但是由于Go封装环境，这在社区引起了一个争论。所以我们需要一个标准。一些环境遇到了大写变体的问题，因此决定将小写作为标准。所有使用logus的东西，都需要使用小写`github.com/sirupsen/logrus`。
+**看到奇怪的大小写敏感问题?**<br>
+在过去，可能导入Logrus的时候，既可以大写，也可以小写。但是由于Go封装环境，这在社区引起了一个争论。所以我们需要一个标准。一些环境遇到了大写变体的问题，因此决定将小写作为标准。所有使用logus的东西，都需要使用小写`github.com/sirupsen/logrus`。
 <br>
 对于修复Glide, 请查看 [这些评论](https://github.com/sirupsen/logrus/issues/553#issuecomment-306591437).<br>
 关于这个问题的深入讨论，请查看[这些评论](https://github.com/sirupsen/logrus/issues/570#issuecomment-313933276).<br>
 
-Nicely color-coded in development (when a TTY is attached, otherwise just
-plain text):
+在开发过程中更好的使用演示编码 (当终端设备连接上时, 否则显示纯文本):
 
 ![Colored](http://i.imgur.com/PY7qMwd.png)
 
-With `log.SetFormatter(&log.JSONFormatter{})`, for easy parsing by logstash
-or Splunk:
+使用 `log.SetFormatter(&log.JSONFormatter{})`, 轻松解析logstash或Splunk:
 
 ```json
 {"animal":"walrus","level":"info","msg":"A group of walrus emerges from the
@@ -42,9 +41,8 @@ ocean","size":10,"time":"2014-03-10 19:57:38.562264131 -0400 EDT"}
 "time":"2014-03-10 19:57:38.562543128 -0400 EDT"}
 ```
 
-With the default `log.SetFormatter(&log.TextFormatter{})` when a TTY is not
-attached, the output is compatible with the
-[logfmt](http://godoc.org/github.com/kr/logfmt) format:
+使用默认的`log.SetFormatter(&log.TextFormatter{})`当终端设备未连上时,输出兼容
+[logfmt](http://godoc.org/github.com/kr/logfmt) 格式:
 
 ```text
 time="2015-03-26T01:27:38-04:00" level=debug msg="Started observing beach" animal=walrus number=8
@@ -54,7 +52,8 @@ time="2015-03-26T01:27:38-04:00" level=debug msg="Temperature changes" temperatu
 time="2015-03-26T01:27:38-04:00" level=panic msg="It's over 9000!" animal=orca size=9009
 time="2015-03-26T01:27:38-04:00" level=fatal msg="The ice breaks!" err=&{0x2082280c0 map[animal:orca size:9009] 2015-03-26 01:27:38.441574009 -0400 EDT panic It's over 9000!} number=100 omg=true
 ```
-To ensure this behaviour even if a TTY is attached, set your formatter as follows:
+
+为了确保这个行为，即使附加了TTY，也要按以下来设置：
 
 ```go
 	log.SetFormatter(&log.TextFormatter{
@@ -63,14 +62,12 @@ To ensure this behaviour even if a TTY is attached, set your formatter as follow
 	})
 ```
 
-#### Logging Method Name
-
-If you wish to add the calling method as a field, instruct the logger via:
+#### 日志方法名
+如果你希望增加这个调用方法到一个字段中，通过指示这个记录器：
 ```go
 log.SetReportCaller(true)
 ```
-This adds the caller as 'method' like so:
-
+这里将会增加一个调用的方法
 ```json
 {"animal":"penguin","level":"fatal","method":"github.com/sirupsen/arcticcreatures.migrate","msg":"a penguin swims by",
 "time":"2014-03-10 19:57:38.562543129 -0400 EDT"}
@@ -79,23 +76,13 @@ This adds the caller as 'method' like so:
 ```text
 time="2015-03-26T01:27:38-04:00" level=fatal method=github.com/sirupsen/arcticcreatures.migrate msg="a penguin swims by" animal=penguin
 ```
-Note that this does add measurable overhead - the cost will depend on the version of Go, but is
-between 20 and 40% in recent tests with 1.6 and 1.7.  You can validate this in your
-environment via benchmarks: 
+注意这样将会增加可衡量的开销。这个花费根据go的版本不一样而不同，但是介于20%到40%之间（在最近测试的1.6和1.7中）。
 ```
 go test -bench=.*CallerTracing
 ```
 
-
-#### Case-sensitivity
-
-The organization's name was changed to lower-case--and this will not be changed
-back. If you are getting import conflicts due to case sensitivity, please use
-the lower-case import: `github.com/sirupsen/logrus`.
-
-#### Example
-
-The simplest way to use Logrus is simply the package-level exported logger:
+#### 用例
+使用Logurs最简单的方式就是打包级别的到处记录器。
 
 ```go
 package main
@@ -110,12 +97,7 @@ func main() {
   }).Info("A walrus appears")
 }
 ```
-
-Note that it's completely api-compatible with the stdlib logger, so you can
-replace your `log` imports everywhere with `log "github.com/sirupsen/logrus"`
-and you'll now have the flexibility of Logrus. You can customize it all you
-want:
-
+注意，logrus完全与标准库中的log包兼容，所以你可以替代你的log包，而使用`log "github.com/sirupsen/logrus"`，然后你将有更灵活的日志工具。你可以按照你的需要做自定义设置。
 ```go
 package main
 
@@ -163,9 +145,7 @@ func main() {
   contextLogger.Info("Me too")
 }
 ```
-
-For more advanced usage such as logging to multiple locations from the same
-application, you can also create an instance of the `logrus` Logger:
+对于更高级的用法，例如从同一日志记录到多个位置应用程序，还可以创建`logrus` Logger的实例
 
 ```go
 package main
