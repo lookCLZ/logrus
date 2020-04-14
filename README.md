@@ -178,12 +178,9 @@ func main() {
 }
 ```
 
-#### Fields
-
-Logrus encourages careful, structured logging through logging fields instead of
-long, unparseable error messages. For example, instead of: `log.Fatalf("Failed
-to send event %s to topic %s with key %d")`, you should log the much more
-discoverable:
+#### 自动
+Logrus鼓励用细致、结构化的日志。通过日志字段代替冗长、难以解析的错误消息。例如，替代`log.Fatalf("Failed
+to send event %s to topic %s with key %d")`，你应该记录更多可以发现的：
 
 ```go
 log.WithFields(log.Fields{
@@ -192,18 +189,11 @@ log.WithFields(log.Fields{
   "key": key,
 }).Fatal("Failed to send event")
 ```
+我们发现这个api将会迫使你考虑记录更多有用的日志信息。我们经历过无数情况，仅仅简单的增加一个日志字段，就已经节约了我们很多时间。`WithFields`调用是可选的。
+一般来说，使用Logrus中`printf`一系列函数作为提示时，应该加上一个字段。但是，你仍然可以使用`printf`一系列函数。
 
-We've found this API forces you to think about logging in a way that produces
-much more useful logging messages. We've been in countless situations where just
-a single added field to a log statement that was already there would've saved us
-hours. The `WithFields` call is optional.
-
-In general, with Logrus using any of the `printf`-family functions should be
-seen as a hint you should add a field, however, you can still use the
-`printf`-family functions with Logrus.
-
-#### Default Fields
-
+#### 默认字段
+通常，将字段_always_附加到日志语句中很有帮助。例如，你可能想
 Often it's helpful to have fields _always_ attached to log statements in an
 application or parts of one. For example, you may want to always log the
 `request_id` and `user_ip` in the context of a request. Instead of writing
