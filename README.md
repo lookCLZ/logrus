@@ -178,7 +178,7 @@ func main() {
 }
 ```
 
-#### 自动
+#### 字段
 Logrus鼓励用细致、结构化的日志。通过日志字段代替冗长、难以解析的错误消息。例如，替代`log.Fatalf("Failed
 to send event %s to topic %s with key %d")`，你应该记录更多可以发现的：
 
@@ -236,7 +236,6 @@ func init() {
 
 #### 日志级别
 Logrus 已经有7个日志级别 （跟踪）Trace, （调试）Debug, （信息）Info, （警告）Warning,（错误）Error, （致命）Fatal and （恐慌）Panic.
-Logrus has seven logging levels:
 
 ```go
 log.Trace("Something very low level.")
@@ -266,12 +265,9 @@ log.SetLevel(log.InfoLevel)
 
 #### Environments
 
-Logrus has no notion of environment.
+Logrus没有环境的概念。
 
-If you wish for hooks and formatters to only be used in specific environments,
-you should handle that yourself. For example, if your application has a global
-variable `Environment`, which is a string representation of the environment you
-could do:
+如果你希望钩子和格式化程序仅仅在特殊环境中使用，你应该自己处理。例如，如果你的应用程序就有全局变量`Environment`，它可以用来表示所处环境：
 
 ```go
 import (
@@ -290,28 +286,20 @@ init() {
 }
 ```
 
-This configuration is how `logrus` was intended to be used, but JSON in
-production is mostly only useful if you do log aggregation with tools like
-Splunk or Logstash.
+这种配置是预期使用`logrus`，但是JSON在生产环境下使用，如果你做日志聚合，使用Splunk或Logstash。
 
-#### Formatters
+#### 格式程序
 
-The built-in logging formatters are:
-
-* `logrus.TextFormatter`. Logs the event in colors if stdout is a tty, otherwise
-  without colors.
-  * *Note:* to force colored output when there is no TTY, set the `ForceColors`
-    field to `true`.  To force no colored output even if there is a TTY  set the
-    `DisableColors` field to `true`. For Windows, see
+* `logrus.TextFormatter`. 如果是用TTY输出，则用颜色记录事件，否则没有颜色。
+  * *注意:* 强制使用颜色输出（即使没有TTY）, 设置 `ForceColors`字段为 `true`.  强制不使用颜色输出（即使有TTY），设置`DisableColors` 字段为`true`. 对于windows, 请查阅
     [github.com/mattn/go-colorable](https://github.com/mattn/go-colorable).
-  * When colors are enabled, levels are truncated to 4 characters by default. To disable
-    truncation set the `DisableLevelTruncation` field to `true`.
-  * When outputting to a TTY, it's often helpful to visually scan down a column where all the levels are the same width. Setting the `PadLevelText` field to `true` enables this behavior, by adding padding to the level text.
-  * All options are listed in the [generated docs](https://godoc.org/github.com/sirupsen/logrus#TextFormatter).
-* `logrus.JSONFormatter`. Logs fields as JSON.
-  * All options are listed in the [generated docs](https://godoc.org/github.com/sirupsen/logrus#JSONFormatter).
+* 启用颜色后，默认情况下级别将被截断为4个字符。如果要禁止截断，设置`DisableLevelTruncation`字段为 `true`.
+* 当输出到TTY时, 可视地向下扫描所有级别均相同宽度的列通常会很有帮助。设置`PadLevelText`字段为 `true` 通过将填充添加到级别文本来启用此行为。
+  * 所有选项都列在[generated docs](https://godoc.org/github.com/sirupsen/logrus#TextFormatter).
+* `logrus.JSONFormatter`. 将字段记录为JSON。
+  * 所有选项都列在 [generated docs](https://godoc.org/github.com/sirupsen/logrus#JSONFormatter).
 
-Third party logging formatters:
+第三方日志格式化程序：
 
 * [`FluentdFormatter`](https://github.com/joonix/log). Formats entries that can be parsed by Kubernetes and Google Container Engine.
 * [`GELF`](https://github.com/fabienm/go-logrus-formatters). Formats entries so they comply to Graylog's [GELF 1.1 specification](http://docs.graylog.org/en/2.4/pages/gelf.html).
