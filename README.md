@@ -229,14 +229,14 @@ func init() {
 }
 ```
 
-注意: Syslog hook also support connecting to local syslog (Ex. "/dev/log" or "/var/run/syslog" or "/var/run/log"). For the detail, please check the [syslog hook README](hooks/syslog/README.md).
+注意: 日志系统钩子也支持本地日志系统(例如："/dev/log" 或者 "/var/run/syslog" 或者 "/var/run/log"). 关于详情, 请查阅 [syslog hook README](hooks/syslog/README.md).
 
-A list of currently known service hooks can be found in this wiki [page](https://github.com/sirupsen/logrus/wiki/Hooks)
+一系列当前已知的服务钩子可以在wiki中找到[page](https://github.com/sirupsen/logrus/wiki/Hooks)
 
 
-#### Level logging
-
-Logrus has seven logging levels: Trace, Debug, Info, Warning, Error, Fatal and Panic.
+#### 日志级别
+Logrus 已经有7个日志级别 （跟踪）Trace, （调试）Debug, （信息）Info, （警告）Warning,（错误）Error, （致命）Fatal and （恐慌）Panic.
+Logrus has seven logging levels:
 
 ```go
 log.Trace("Something very low level.")
@@ -249,27 +249,20 @@ log.Fatal("Bye.")
 // Calls panic() after logging
 log.Panic("I'm bailing.")
 ```
-
-You can set the logging level on a `Logger`, then it will only log entries with
-that severity or anything above it:
+你可以设置日志级别在`Logger`中，接下来它就仅仅记录这个级别或这个级别以上的日志：
 
 ```go
 // Will log anything that is info or above (warn, error, fatal, panic). Default.
 log.SetLevel(log.InfoLevel)
 ```
+在调试或冗长环境中设置`log.Level = logrus.DebugLevel`可能是有用的。
 
-It may be useful to set `log.Level = logrus.DebugLevel` in a debug or verbose
-environment if your application has that.
+#### 输入
+除了在字段中添加 `WithField` 或 `WithFields`，一些字段是自动添加到所有日志记录时间中的：
 
-#### Entries
-
-Besides the fields added with `WithField` or `WithFields` some fields are
-automatically added to all logging events:
-
-1. `time`. The timestamp when the entry was created.
-2. `msg`. The logging message passed to `{Info,Warn,Error,Fatal,Panic}` after
-   the `AddFields` call. E.g. `Failed to send event.`
-3. `level`. The logging level. E.g. `info`.
+1. `time`   时间戳，记录创建时自动添加。
+2. `msg`   日志消息传递给 `{Info,Warn,Error,Fatal,Panic}` 后，`AddFields` 调用。 例如： `Failed to send event.`
+3. `level` 日志级别。 例如： `info`.
 
 #### Environments
 
